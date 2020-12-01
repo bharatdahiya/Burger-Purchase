@@ -53,30 +53,22 @@ class BurgerBuilder extends Component {
     }
 
     purchaseContinueHandler = () => {
-        //Https request.
-        this.setState({ loading: true });
-        const order = {
-            ingredients: this.state.ingredients,
-            price: this.state.totalPrice,
-            customer: {
-                name: 'Bharat',
-                address: {
-                    pincode: 110001,
-                    country: 'India'
-                },
-                emailId: 'abc@gmail.com'
-            },
-            deliveryMethod: 'fast'
+
+
+        const queryParams = [];
+
+        //Important part : How to pass value to other component using URL search Params 
+
+        for(let i in this.state.ingredients) {
+            queryParams.push(encodeURIComponent(i) + '=' +encodeURIComponent(this.state.ingredients[i]));
         }
-        axios.post('/orders.json', order)
-            .then(response => {
-                this.setState({ loading: false, isPurchasing: false });
-                console.log(response)
-            })
-            .catch(error => {
-                this.setState({ loading: false, isPurchasing: false });
-                console.log(error)
-            });
+        queryParams.push('price='+ this.state.totalPrice);
+        const queryString = queryParams.join('&');
+        this.props.history.push({
+            pathname: '/checkout',
+            search: '?' + queryString
+        });
+       
     }
 
     addIngredientHandler = (type) => {
@@ -140,11 +132,11 @@ class BurgerBuilder extends Component {
             </Auxiliary>);
 
             orderSummary = <OrderSummary
-            ingredients={this.state.ingredients}
-            purchaseCancel={this.purchaseCancelhandler}
-            purchaseContinue={this.purchaseContinueHandler}
-            price={this.state.totalPrice} />;
-            
+                ingredients={this.state.ingredients}
+                purchaseCancel={this.purchaseCancelhandler}
+                purchaseContinue={this.purchaseContinueHandler}
+                price={this.state.totalPrice} />;
+
         }
         return (
             <Auxiliary>

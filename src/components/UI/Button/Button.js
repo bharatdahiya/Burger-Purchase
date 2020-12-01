@@ -13,7 +13,7 @@ const button = (props) => {
     console.log(css);
     
     return (
-        <button className={css} onClick={props.clicked}>
+        <button className={css} onClick={props.clicked} disabled={props.disabled}>
             {props.children}
         </button>
     );
