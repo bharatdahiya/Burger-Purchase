@@ -4,7 +4,9 @@ import './UserData.css';
 import axios from '../../axios';
 import Spinner from '../../components/UI/Spinner/spinner';
 import Input from '../../components/UI/Forms/Input/Input';
-export default class UserData extends React.Component {
+import { connect } from 'react-redux';
+
+class UserData extends React.Component {
     state = {
         orderForm: {
             name: {
@@ -100,7 +102,7 @@ export default class UserData extends React.Component {
         //Https request.
         this.setState({ loading: true });
         const order = {
-            ingredients: this.props.ingredients,
+            ingredients: this.props.ings,
             price: this.props.price,
             order: formData
         }
@@ -194,3 +196,12 @@ export default class UserData extends React.Component {
 
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        ings: state.ingredients,
+        price: state.totalPrice
+    }
+}
+
+export default connect(mapStateToProps)(UserData);
