@@ -8,8 +8,7 @@ import axios from '../../axios';
 import Spinner from '../../components/UI/Spinner/spinner';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import {connect} from 'react-redux';
-import * as actionTypes from '../../store/actions';
-
+import * as burgerBuilderActions from '../../store/actions/index';
 
 class BurgerBuilder extends Component {
 
@@ -19,10 +18,7 @@ class BurgerBuilder extends Component {
     }
 
     componentDidMount() {
-        // axios.get('https://react-burger-builder-2c200.firebaseio.com/ingredients.json')
-        //     .then(response => {
-        //         this.setState({ ingredients: response.data });
-        //     });
+        this.props.onInitIngredients();
     }
     updatePurchaseState( ingredients ) {
         // const ingredients = {
@@ -80,7 +76,7 @@ class BurgerBuilder extends Component {
             orderSummary = <Spinner />;
         }
 
-        let burger = <Spinner />;
+        let burger = this.props.error ? <p>Ingredients can't be loaded. </p>:<Spinner />;
 
         if (this.props.ings) {
             burger = (<Auxiliary>
@@ -116,14 +112,16 @@ class BurgerBuilder extends Component {
 const mapStateToProps = state => {
     return {
         ings : state.ingredients,
-        price : state.totalPrice
+        price : state.totalPrice,
+        error : state.error
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onIngredientAdded : (ingName) => dispatch({type : actionTypes.ADD_INGREDIENT, ingredientName: ingName}),
-        onIngredientRemoved : (ingName) => dispatch({type : actionTypes.REMOVE_INGREDIENT, ingredientName: ingName})
+        onIngredientAdded : (ingName) => dispatch(burgerBuilderActions.addIngredient(ingName)),
+        onIngredientRemoved : (ingName) => dispatch(burgerBuilderActions.removeIngredient(ingName)),
+        onInitIngredients:  () => dispatch(burgerBuilderActions.initIngredients())
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps) (withErrorHandler(BurgerBuilder, axios));
