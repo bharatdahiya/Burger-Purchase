@@ -1,5 +1,5 @@
 import React from 'react';
-import './Order.css'
+import './Order.css';
 const order = (props) => {
     const ingredients = [];
     for (let ingredientName in props.ingredients) {
@@ -17,7 +17,7 @@ const order = (props) => {
     return (
         <div className="order">
             <p>Ingredients : {ingredientsOutput} </p>
-            <p>Price: <strong> Rs. {Number.parseFloat(props.price).t} </strong></p>
+            <p>Price: <strong> Rs. {Number.parseFloat(props.price)} </strong></p>
         </div>
     );
 };
