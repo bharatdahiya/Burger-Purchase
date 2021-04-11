@@ -103,10 +103,11 @@ class UserData extends React.Component {
         const order = {
             ingredients: this.props.ings,
             price: this.props.price,
-            order: formData
+            order: formData,
+            userId  : this.props.userId
         }
 
-        this.props.onOrderBuger(order);
+        this.props.onOrderBuger(order, this.props.token);
     }
 
     checkValidity(value, rules) {
@@ -193,13 +194,15 @@ const mapStateToProps = state => {
     return {
         ings: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
-        loading : state.order.loading
+        loading : state.order.loading,
+        token : state.auth.token,
+        userId : state.auth.userId
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return{
-        onOrderBuger : (orderData) => dispatch(purchaseBurgerActions.purchaseBurger(orderData))
+        onOrderBuger : (orderData, token) => dispatch(purchaseBurgerActions.purchaseBurger(orderData, token))
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(withErrorHandler(UserData, axios));

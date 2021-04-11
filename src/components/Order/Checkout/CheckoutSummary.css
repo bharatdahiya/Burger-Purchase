@@ -4,8 +4,3 @@
     margin: auto;
 }
 
-@media(min-width:600px){
-    .checkoutSummary{
-        width: 500px;
-    }
-}

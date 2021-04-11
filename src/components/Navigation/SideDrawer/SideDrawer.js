@@ -7,20 +7,20 @@ import Auxiliary from '../../../hoc/Auxiliary';
 
 const sideDrawer = (props) => {
 
-    let cssclass = ['SideDrawer' , 'Close'];
-    if(props.open) {
-        cssclass= ['SideDrawer' , 'Open'];
+    let cssclass = ['SideDrawer', 'Close'];
+    if (props.open) {
+        cssclass = ['SideDrawer', 'Open'];
     }
     console.log(cssclass.join(' '));
     return (
         <Auxiliary>
-            <BackDrop show={props.open} clicked= {props.closed}/>
-            <div className={cssclass.join(' ')} >
+            <BackDrop show={props.open} clicked={props.closed} />
+            <div className={cssclass.join(' ')} onClick={props.closed}>
                 <div style={{ height: '11%', margin: '32px' }}>
                     <Logo />
                 </div>
                 <nav>
-                    <NavigationItems></NavigationItems>
+                    <NavigationItems isAuthenticated={props.isAuth}></NavigationItems>
                 </nav>
             </div>
         </Auxiliary>
