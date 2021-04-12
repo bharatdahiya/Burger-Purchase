@@ -5,19 +5,26 @@ import * as action from '../../store/actions/index';
 import withErrorHandler from '../../hoc/withErrorHandler/withErrorHandler';
 import { connect } from 'react-redux';
 import Spinner from '../../components/UI/Spinner/spinner';
+import '../../components/Order/Order.css';
 
 class Orders extends React.Component {
     componentDidMount() {
         this.props.onFetchOrders(this.props.tokenId, this.props.userId);
     }
+
     render() {
         let orders = <Spinner />;
-        if (!this.props.loading) {
+        if (!this.props.loading ) {
             orders = this.props.orders.map(order => (
                 <Order key={order.id}
                     ingredients={order.ingredients}
                     price={order.price} />
             ));
+        }
+        if(this.props.orders.length === 0){
+            orders = <div className="order">
+                <p> <strong> No order placed yet. </strong></p>
+            </div>
         }
         return orders;
     }
@@ -27,7 +34,7 @@ const mapStateToProps = state => {
         orders: state.order.orders,
         loading: state.order.loading,
         error: state.order.error,
-        tokenId : state.auth.token,
+        tokenId: state.auth.token,
         userId: state.auth.userId
     }
 }

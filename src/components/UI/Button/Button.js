@@ -10,7 +10,6 @@ const button = (props) => {
         cssClass.push('Danger');
     }
     let css = cssClass.join(' ');
-    console.log(css);
     
     return (
         <button className={css} onClick={props.clicked} disabled={props.disabled}>

@@ -11,7 +11,6 @@ const sideDrawer = (props) => {
     if (props.open) {
         cssclass = ['SideDrawer', 'Open'];
     }
-    console.log(cssclass.join(' '));
     return (
         <Auxiliary>
             <BackDrop show={props.open} clicked={props.closed} />

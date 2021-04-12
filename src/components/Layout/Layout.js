@@ -3,7 +3,6 @@ import Auxiliary from '../../hoc/Auxiliary';
 import './Layout.css';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
 import SideDrawer from '../Navigation/SideDrawer/SideDrawer';
-import * as actionType from '../../store/actions/index';
 import { connect } from 'react-redux';
 
 class Layout extends React.Component {
