@@ -7,7 +7,7 @@
 5.  In orders section user can see their orders history.
 6.  Authentication is applied only sigup user can place order.
 
-### Technology used: 
+### Technologies used: 
 1. Front-end : HTML5, CSS 3, ReactJS, Redux
 2. Backend : Firebase
 
